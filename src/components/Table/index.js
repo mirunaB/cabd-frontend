@@ -13,40 +13,43 @@ const TableContainerStyled = styled(TableContainer)`
   margin-top: ${({ theme }) => theme.spacing(8)}px;
 `;
 
-function createData(id, title, condition, price) {
-  return { id, title, condition, price };
-}
 
-const rows = [
-  createData(1, "title1", "buna", 24),
-  createData(2, "title2", "rea", 9),
-];
+const Table = (props) => {
 
-export default function Table() {
   return (
     <TableContainerStyled component={Paper}>
-      <TableBase aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Book id </TableCell>
-            <TableCell align="center">Title</TableCell>
-            <TableCell align="center">Condition</TableCell>
-            <TableCell align="center">Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell align="center">{row.title}</TableCell>
-              <TableCell align="center">{row.condition}</TableCell>
-              <TableCell align="center">{row.price}</TableCell>
+        <TableBase aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Id </TableCell>
+              {props.rows.length > 0 && props.rows[0] && props.rows[0].id_original && <TableCell align="center">Id Original</TableCell>}
+              <TableCell align="center">Titlu</TableCell>
+              <TableCell align="center">Stare</TableCell>
+              <TableCell align="center">Pret</TableCell>
+              {props.rows.length > 0 && props.rows[0] && props.rows[0].start_time && <TableCell align="center">Start time</TableCell>}
+              {props.rows.length > 0 && props.rows[0] && props.rows[0].end_time && <TableCell align="center">End time</TableCell>}
+              <TableCell align="center">Perioada</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </TableBase>
-    </TableContainerStyled>
-  );
+          </TableHead>
+          <TableBody>
+            {props.rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                {row.id_original && <TableCell align="center">{row.id_original}</TableCell>}
+                <TableCell align="center">{row.titlu}</TableCell>
+                <TableCell align="center">{row.stare}</TableCell>
+                <TableCell align="center">{row.pret}</TableCell>
+                {row.start_time && <TableCell align="center">{row.start_time}</TableCell>}
+                {row.end_time && <TableCell align="center">{row.end_time}</TableCell>}
+                <TableCell align="center">{row.perioada}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </TableBase>
+      </TableContainerStyled>
+    );
 }
+
+export default Table;

@@ -29,12 +29,13 @@ const StyledContainer = styled(Container)`
   max-width: 400px;
 `;
 
-const MyForm = () => {
+const MyForm = (props) => {
   const [formData, setFormData] = useState({
     id: "",
     title: "",
     condition: "",
     price: 0,
+    moment: "",
   });
 
   return (
@@ -99,7 +100,7 @@ const MyForm = () => {
               <Button
                 color="primary"
                 variant="outlined"
-                onClick={() => console.log("click")}
+                onClick={() => props.adaugaCarte({titlu: formData.title, stare: formData.condition, pret: formData.price})}
                 disabled={formData.tableName === ""}
               >
                 Add
@@ -109,7 +110,7 @@ const MyForm = () => {
               <Button
                 color="primary"
                 variant="outlined"
-                onClick={() => console.log("click")}
+                onClick={() => props.actualizeazaCarte({id:formData.id, titlu: formData.title, stare: formData.condition, pret: formData.price})}
                 disabled={formData.tableName === ""}
               >
                 Update
@@ -120,10 +121,46 @@ const MyForm = () => {
               <Button
                 color="primary"
                 variant="outlined"
-                onClick={() => console.log("click")}
+                onClick={() => props.stergeCarte(formData.id)}
                 disabled={formData.tableName === ""}
               >
                 Delete
+              </Button>
+            </Grid>
+
+            <StyledGridCol item md={12} sm={6}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                onChange={(e) =>
+                  setFormData({ ...formData, moment: e.target.value })
+                }
+                value={formData.moment}
+                id="moment"
+                label="Moment"
+                name="moment"
+              />
+            </StyledGridCol>
+
+            <Grid item xs={12} sm={4}>
+              <Button
+                color="primary"
+                variant="outlined"
+                onClick={() => props.determinaStare(formData.moment)}
+                disabled={formData.tableName === ""}
+              >
+                Determina stare
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <Button
+                color="primary"
+                variant="outlined"
+                onClick={() => props.getPerioadaMax()}
+                disabled={formData.tableName === ""}
+              >
+                Perioada max
               </Button>
             </Grid>
           </Grid>
