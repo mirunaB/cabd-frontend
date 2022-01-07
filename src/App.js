@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import styled, { ThemeProvider } from "styled-components";
+import theme from "./theme";
+import { MuiThemeProvider } from "@material-ui/core";
+import Table from "./components/Table";
+import MyForm from "./components/MuForm/MyForm";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+`;
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <Container>
+            <MyForm />
+            <Table />
+          </Container>
+        </ThemeProvider>
+      </MuiThemeProvider>
     </div>
   );
 }
