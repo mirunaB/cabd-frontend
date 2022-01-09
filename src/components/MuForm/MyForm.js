@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
-import { Button, Paper } from "@material-ui/core";
+import { Button, Paper, Typography } from "@material-ui/core";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import { Divider } from "@material-ui/core";
 
 const Form = styled.form`
   width: 100%;
@@ -43,6 +44,7 @@ const MyForm = (props) => {
       <Wrapper>
         <Form noValidate>
           <Grid container spacing={2}>
+            <Typography variant="h5" color="secondary">Detalii carte</Typography>
             <StyledGridCol item md={12} sm={6}>
               <TextField
                 variant="outlined"
@@ -52,7 +54,7 @@ const MyForm = (props) => {
                 }
                 value={formData.id}
                 id="id"
-                label="Book id"
+                label="Id carte"
                 name="id"
               />
             </StyledGridCol>
@@ -65,7 +67,7 @@ const MyForm = (props) => {
                 }
                 value={formData.title}
                 id="title"
-                label="Title"
+                label="Titlu"
                 name="title"
               />
             </StyledGridCol>
@@ -78,7 +80,7 @@ const MyForm = (props) => {
                 }
                 value={formData.condition}
                 id="condition"
-                label="Condition"
+                label="Stare"
                 name="condition"
               />
             </StyledGridCol>
@@ -91,7 +93,7 @@ const MyForm = (props) => {
                 }
                 value={formData.price}
                 id="price"
-                label="Price"
+                label="Pret"
                 name="price"
                 type="number"
               />
@@ -99,7 +101,7 @@ const MyForm = (props) => {
             <Grid item xs={12} sm={4}>
               <Button
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 onClick={() => props.adaugaCarte({titlu: formData.title, stare: formData.condition, pret: formData.price})}
                 disabled={formData.tableName === ""}
               >
@@ -109,7 +111,7 @@ const MyForm = (props) => {
             <Grid item xs={12} sm={4}>
               <Button
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 onClick={() => props.actualizeazaCarte({id:formData.id, titlu: formData.title, stare: formData.condition, pret: formData.price})}
                 disabled={formData.tableName === ""}
               >
@@ -120,14 +122,18 @@ const MyForm = (props) => {
             <Grid item xs={12} sm={4}>
               <Button
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 onClick={() => props.stergeCarte(formData.id)}
                 disabled={formData.tableName === ""}
+                style={{
+                  padding: "8px 2px"
+                }}
               >
                 Delete
               </Button>
             </Grid>
 
+            <Typography variant="h5" color="secondary">Rapoarte</Typography>
             <StyledGridCol item md={12} sm={6}>
               <TextField
                 variant="outlined"
@@ -145,9 +151,12 @@ const MyForm = (props) => {
             <Grid item xs={12} sm={4}>
               <Button
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 onClick={() => props.determinaStare(formData.moment)}
                 disabled={formData.tableName === ""}
+                style={{
+                  padding: "30px 5px"
+                }}
               >
                 Determina stare
               </Button>
@@ -156,11 +165,59 @@ const MyForm = (props) => {
             <Grid item xs={12} sm={4}>
               <Button
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 onClick={() => props.getPerioadaMax()}
                 disabled={formData.tableName === ""}
+                style={{
+                  padding: "30px 5px",
+                  "&:hover": {
+                    color: "#fffff !important",
+                  }
+                }}
               >
                 Perioada max
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => props.getPretDiff()}
+                disabled={formData.tableName === ""}
+                style={{
+                  padding: "30px 5px"
+                }}
+              >
+                Diferente pret
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => props.getCarti()}
+                disabled={formData.tableName === ""}
+                style={{
+                  padding: "30px 5px"
+                }}
+              >
+                Afiseaza carti
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => props.getIstoric()}
+                disabled={formData.tableName === ""}
+                style={{
+                  padding: "30px 5px"
+                }}
+              >
+                Afiseaza istoric
               </Button>
             </Grid>
           </Grid>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import theme from "./theme";
-import { MuiThemeProvider } from "@material-ui/core";
+import { Grid, MuiThemeProvider, Paper} from "@material-ui/core";
 import MyForm from "./components/MuForm/MyForm";
 import Table from "./components/Table";
 
@@ -23,6 +23,17 @@ class App extends React.Component {
 
   getAllCarte = () => {
     fetch('http://localhost:8080/carte', {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  .then(response => response.json())
+  .then(data => this.setState({rows: data}));
+  }
+
+  getAllIstoric = () => {
+    fetch('http://localhost:8080/istoric', {
       method: 'GET', 
       headers: {
         'Content-Type': 'application/json'
@@ -89,6 +100,17 @@ class App extends React.Component {
     .then(response => response.json())
     .then(data => this.setState({rows: data}));
   }
+
+  getPretDiff = () => {
+    fetch('http://localhost:8080/istoric/pret', {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  .then(response => response.json())
+  .then(data => this.setState({rows: data}));
+  }
   
 
   render() {
@@ -98,14 +120,23 @@ class App extends React.Component {
         <MuiThemeProvider theme={theme}>
           <ThemeProvider theme={theme}>
             <Container>
-              <MyForm 
-                adaugaCarte={this.adaugaCarte}
-                stergeCarte={this.stergeCarte}
-                actualizeazaCarte={this.actualizeazaCarte}
-                getPerioadaMax={this.getPerioadaMax}
-                determinaStare={this.determinaStare}
-              />
-              <Table rows={this.state.rows} />
+              <Grid container>
+                <Grid item xs={4}>
+                  <MyForm 
+                  adaugaCarte={this.adaugaCarte}
+                  stergeCarte={this.stergeCarte}
+                  actualizeazaCarte={this.actualizeazaCarte}
+                  getPerioadaMax={this.getPerioadaMax}
+                  determinaStare={this.determinaStare}
+                  getPretDiff={this.getPretDiff}
+                  getCarti={this.getAllCarte}
+                  getIstoric={this.getAllIstoric}
+                />
+                </Grid>
+                <Grid item xs={8}>
+                  <Table rows={this.state.rows} />
+                </Grid>
+              </Grid>
             </Container>
           </ThemeProvider>
         </MuiThemeProvider>
